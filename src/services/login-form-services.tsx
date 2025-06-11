@@ -19,6 +19,7 @@ export const LoginServices = async () => {
             photoURL: user.photoURL,
             lastLogin: Timestamp.fromDate(new Date),
         };
+
         await setDoc(doc(db, "users", user.uid), userData, { merge: true });
         return {
             user,
