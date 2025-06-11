@@ -1,8 +1,8 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { doc, setDoc, Timestamp, getFirestore } from "firebase/firestore";
-
-const db = getFirestore();
-const auth = getAuth();
+import { doc, setDoc, getFirestore, serverTimestamp } from "firebase/firestore";
+import { app } from '../lib/firebase-sdk'
+const db = getFirestore(app);
+const auth = getAuth(app);
 export const LoginServices = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -17,7 +17,7 @@ export const LoginServices = async () => {
             name: user.displayName,
             email: user.email,
             photoURL: user.photoURL,
-            lastLogin: Timestamp.fromDate(new Date),
+            lastLogin: serverTimestamp(),
         };
 
         await setDoc(doc(db, "users", user.uid), userData, { merge: true });
