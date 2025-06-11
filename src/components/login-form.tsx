@@ -11,8 +11,8 @@ export function LoginForm() {
             toast("Messenger", {
                 description: "You’ve successfully logged in",
                 action: {
-                    label: "Remove",
-                    onClick: () => console.log("remove"),
+                    label: "Ok",
+                    onClick: () => console.log("Ok"),
                 },
             })
         } else {
