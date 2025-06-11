@@ -9,7 +9,7 @@ export function LoginForm() {
         const userLogin = await LoginServices()
         if (userLogin) {
             toast("Messenger", {
-                description: "You a now login",
+                description: "You’ve successfully logged in",
                 action: {
                     label: "Remove",
                     onClick: () => console.log("remove"),

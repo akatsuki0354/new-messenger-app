@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../navbar/navbar'
-import UserSelect from '../Chat/ChatBox/user-select'
-import ChatBox from '../Chat/ChatBox/chat-box'
+import UserSelect from '../Chat/user-select'
+import ChatBox from '../Chat/chat-box'
 export default function Home() {
 
     return (
