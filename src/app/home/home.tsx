@@ -1,18 +1,23 @@
 import React from 'react'
-import { Button } from '@/components/ui/button'
-import { getAuth, signOut } from "firebase/auth";
+import Navbar from '../navbar/navbar'
+import UserSelect from '../Chat/ChatBox/user-select'
+import ChatBox from '../Chat/ChatBox/chat-box'
 export default function Home() {
-    const auth = getAuth();
-    const Logout = () => {
-        try {
-            signOut(auth)
-        } catch (err) {
-            console.log(err)
-        }
-    }
+
     return (
         <>
-            <Button onClick={Logout}>Hello</Button>
+
+            <div className='flex flex-col h-screen'>
+                <Navbar />
+                <div className="userSelect flex flex-1">
+                    <div className="min-w-1/5 bg-slate-100/40">
+                        <UserSelect />
+                    </div>
+                    <div className='chatBox flex-col flex-1 flex'>
+                        <ChatBox />
+                    </div>
+                </div>
+            </div >
         </>
     )
 }

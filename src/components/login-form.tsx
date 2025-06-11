@@ -1,12 +1,20 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { toast } from "sonner"
 import { LoginServices } from "@/services/login-form-services"
+import { serverTimestamp } from "firebase/firestore"
 export function LoginForm() {
     const LoginForm = async () => {
         const userLogin = await LoginServices()
         if (userLogin) {
-            console.log("user is login")
+            toast("Messenger", {
+                description: "You a now login",
+                action: {
+                    label: "Remove",
+                    onClick: () => console.log("remove"),
+                },
+            })
         } else {
             console.log("user is error")
         }
