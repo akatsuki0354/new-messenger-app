@@ -1,5 +1,7 @@
 import '@/lib/firebase-sdk'
 import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { useState, useEffect } from 'react';
+import { Users } from '../lib/types'
 
 const db = getFirestore();
 
@@ -17,3 +19,15 @@ export async function UserData() {
     }
 }
 
+export function useUsers() {
+    const [userData, setUserData] = useState<Users[]>([]);
+    useEffect(() => {
+        async function fetchUsers() {
+            const users = await UserData();
+            setUserData(users);
+        }
+        fetchUsers();
+    }, []);
+
+    return userData;
+}

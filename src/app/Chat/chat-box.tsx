@@ -1,11 +1,18 @@
-import React from 'react'
 
+"use client"
+import React, { useEffect } from 'react'
+import { getFirestore } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
 function ChatBox() {
+    const auth = getAuth()
+    const user = auth?.currentUser;
+
     return (
         <div className='flex-col flex-1 flex '>
-            <div className='flex-1'>
-                hi
+            <div>
+                {user?.displayName}
             </div>
+
             <div>
                 hello
             </div>

@@ -1,43 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { UserData } from '@/services/fetch-data-services'
+import React from 'react'
 import SearchInput from '@/components/search-input';
 import UserCard from '@/components/users-card';
-type Users = {
-    name: string,
-    status: string,
-    id: string,
-    photoURL: string
-}
+import { useUsers } from '@/services/fetch-data-services';
 
 function UserSelect() {
-    const [userData, setUserData] = useState<Users[]>()
-    async function fetchUsers() {
-        const users = await UserData();
-        setUserData(users)
-    }
-    useEffect(() => {
-        fetchUsers()
-    }, [])
-
+    const userData = useUsers()
     return (
         <div>
             <SearchInput type="text" />
             <hr />
             <div>
                 <h1 className='font-semibold p-3'>Chat with Users</h1>
-                <div className='overflow-y-auto max-h-100vh'>
-                    {userData?.map((users, index: any) => (
-                        <UserCard key={index.id} photoURL={users.photoURL} name={users.name} status={users.status} />
-                    ))}
-                    {userData?.map((users, index: any) => (
-                        <UserCard key={index.id} photoURL={users.photoURL} name={users.name} status={users.status} />
-                    ))}
-                    {userData?.map((users, index: any) => (
-                        <UserCard key={index.id} photoURL={users.photoURL} name={users.name} status={users.status} />
-                    ))}
-                    {userData?.map((users, index: any) => (
-                        <UserCard key={index.id} photoURL={users.photoURL} name={users.name} status={users.status} />
-                    ))}
+                <div className='scroll h-[calc(100vh-215px)] overflow-y-auto'>
+                    <div>
+                        {userData.map((user, index) => (
+                            <UserCard
+                                key={user.id || index}
+                                photoURL={user.photoURL || null}
+                                name={user.name}
+                                status={user.status}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

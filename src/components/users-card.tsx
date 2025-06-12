@@ -1,28 +1,43 @@
-import React from 'react'
+import React from 'react';
 import {
     Card,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
-function UserCard(props: any) {
+} from "@/components/ui/card";
+import { UserCircle } from 'lucide-react';
+
+function UserCard({ photoURL, name, status }: any) {
+    const hasValidPhoto = Boolean(photoURL) && photoURL !== 'null' && photoURL !== 'undefined';
     return (
-        <div className=''>
-            <Card className='px-2 rounded-none bg-teal-700/10 hover:bg-teal-200/10 cursor-pointer '>
-                <CardHeader >
+        <div>
+            <Card className='p-3 rounded-none bg-teal-900/5 hover:bg-teal-200/10 cursor-pointer'>
+                <CardHeader>
                     <div className='flex gap-3'>
-                        <img src={props.photoURL} className='w-15 h-15 rounded-full' alt='profile' />
+                        {hasValidPhoto ? (
+                            <img
+                                src={photoURL}
+                                className='w-16 h-16 rounded-full object-cover'
+                                alt='profile'
+                                onError={(e) => {
+                                    console.log('Image failed to load:', photoURL);
+                                    e.currentTarget.style.display = 'none';
+                                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                                }}
+                            />
+                        ) : null}
+                        <UserCircle className={`w-16 h-16 text-gray-400 ${hasValidPhoto ? 'hidden' : ''}`} />
                         <div className='mt-3'>
-                            <CardTitle>{props.name}</CardTitle>
+                            <CardTitle>{name}</CardTitle>
                             <CardDescription>
-                                {props.status}
+                                {status}
                             </CardDescription>
                         </div>
                     </div>
                 </CardHeader>
             </Card>
         </div>
-    )
+    );
 }
 
-export default UserCard
+export default UserCard;
