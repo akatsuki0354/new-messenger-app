@@ -13,15 +13,15 @@ function UserSelect({ onSelectUser }: { onSelectUser: (user: Users) => void }) {
     const currentUser = auth.currentUser;
 
     // Filter out current user and apply search filter
-    const filteredUsers = userData.filter(user => 
-        user.id !== currentUser?.uid && 
+    const filteredUsers = userData.filter(user =>
+        user.id !== currentUser?.uid &&
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
         <div>
-            <SearchInput 
-                type="text" 
+            <SearchInput
+                type="text"
                 value={searchQuery}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                 placeholder="Search users..."
@@ -37,7 +37,7 @@ function UserSelect({ onSelectUser }: { onSelectUser: (user: Users) => void }) {
                     ) : (
                         <div>
                             {filteredUsers.map((user, index) => (
-                                <div 
+                                <div
                                     key={user.id || index}
                                     onClick={() => onSelectUser(user)}
                                     className="cursor-pointer hover:bg-gray-50"

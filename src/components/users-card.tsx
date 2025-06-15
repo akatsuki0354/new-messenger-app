@@ -17,7 +17,7 @@ function UserCard({ photoURL, name, status }: any) {
                         {hasValidPhoto ? (
                             <img
                                 src={photoURL}
-                                className='w-16 h-16 rounded-full object-cover'
+                                className='w-12 h-12 rounded-full object-cover'
                                 alt='profile'
                                 onError={(e) => {
                                     console.log('Image failed to load:', photoURL);
@@ -27,7 +27,7 @@ function UserCard({ photoURL, name, status }: any) {
                             />
                         ) : null}
                         <UserCircle className={`w-16 h-16 text-gray-400 ${hasValidPhoto ? 'hidden' : ''}`} />
-                        <div className='mt-3'>
+                        <div className='mt-2'>
                             <CardTitle>{name}</CardTitle>
                             <CardDescription>
                                 {status}
