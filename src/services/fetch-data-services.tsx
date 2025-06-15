@@ -1,30 +1,58 @@
 import '@/lib/firebase-sdk'
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { useState, useEffect } from 'react';
 import { Users } from '../lib/types'
+import { getAuth } from 'firebase/auth';
 
 const db = getFirestore();
 
 export async function UserData() {
     try {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        const users: any[] = [];
+        const auth = getAuth();
+        const currentUser = auth.currentUser;
+
+        if (!currentUser) {
+            console.error("No authenticated user found");
+            return [];
+        }
+
+        const q = query(
+            collection(db, "users"),
+            where("uid", "!=", currentUser.uid)
+        );
+
+        const querySnapshot = await getDocs(q);
+        const users: Users[] = [];
+
         querySnapshot.forEach((doc) => {
-            users.push(doc.data());
+            const data = doc.data();
+            users.push({
+                id: data.uid,
+                name: data.name,
+                status: data.status,
+                photoURL: data.photoURL
+            });
         });
+
         return users;
     } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching users:", error);
         return [];
     }
 }
 
 export function useUsers() {
     const [userData, setUserData] = useState<Users[]>([]);
+
+
     useEffect(() => {
         async function fetchUsers() {
-            const users = await UserData();
-            setUserData(users);
+            try {
+                const users = await UserData();
+                setUserData(users);
+            } catch (err) {
+                console.error("Error in useUsers hook:", err);
+            }
         }
         fetchUsers();
     }, []);
