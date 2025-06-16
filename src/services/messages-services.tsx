@@ -11,6 +11,7 @@ export interface Message {
     senderName: string | null;
     senderPhotoURL: string | null;
     timestamp: any;
+    lastMessage?: string | null
 }
 
 export function useMessages(selectedUser: User | undefined) {
@@ -39,7 +40,8 @@ export function useMessages(selectedUser: User | undefined) {
                 console.log('Received snapshot with', snapshot.docs.length, 'messages');
                 const newMessages = snapshot.docs.map(doc => ({
                     id: doc.id,
-                    ...doc.data()
+                    ...doc.data(),
+                    lastMessage: doc.data().content
                 })) as Message[];
                 console.log('Processed messages:', newMessages);
                 setMessages(newMessages);
@@ -73,7 +75,6 @@ export function useMessages(selectedUser: User | undefined) {
             senderPhotoURL: user.photoURL,
             timestamp: serverTimestamp(),
         };
-
         try {
             const docRef = await addDoc(collection(db, `chats/${chatId}/messages`), messageData);
             console.log('Message sent successfully with ID:', docRef.id);
@@ -88,9 +89,15 @@ export function useMessages(selectedUser: User | undefined) {
         }
     };
 
+    const getLastMessage = () => {
+        if (messages.length === 0) return null;
+        return messages[messages.length - 1].lastMessage;
+    };
+
     return {
         messages,
         isLoading,
-        sendMessage
+        sendMessage,
+        getLastMessage
     };
 } 
