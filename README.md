@@ -26,7 +26,7 @@ bun dev
 │   └── services/         # Service functions (API, data fetching, etc.)
 ```
 
-```
+```diff
 + src
 + ├── app
 + │   ├── layouts
