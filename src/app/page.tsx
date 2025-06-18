@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import LoginPage from "./login/login";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Home from "./home/home";
+import Home from "./@home/page";
+import Loading from "@/components/loading";
 
 export default function Page() {
   const [islogin, setIslogin] = useState(false);
@@ -25,7 +26,7 @@ export default function Page() {
   }, []);
 
   if (isloading) {
-    return <div>Loading...</div>;
+    return <Loading fullScreen>Loading Please Wait...</Loading >;
   }
 
   return <div>{islogin ? <Home /> : <LoginPage />}</div>;

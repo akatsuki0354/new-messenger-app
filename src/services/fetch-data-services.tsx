@@ -43,19 +43,22 @@ export async function UserData() {
 
 export function useUsers() {
     const [userData, setUserData] = useState<Users[]>([]);
-
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchUsers() {
+            setLoading(true);
             try {
                 const users = await UserData();
                 setUserData(users);
             } catch (err) {
                 console.error("Error in useUsers hook:", err);
+            } finally {
+                setLoading(false);
             }
         }
         fetchUsers();
     }, []);
 
-    return userData;
+    return { userData, loading };
 }

@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from 'react'
 import Navbar from '../navbar/navbar'
-import UserSelect from '../Chat/user-select'
-import ChatBox from '../Chat/chat-box'
+import UserSelect from './Chat/user-select'
+import ChatBox from './Chat/chat-box'
 import { Users } from '@/lib/types'
 
 export default function Home() {

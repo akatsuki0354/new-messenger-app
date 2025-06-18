@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Messenger App
 
-## Getting Started
+## Folder Structure
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+.
+├── src/                  # Main source code
+│   ├── app/              # Next.js app directory (pages, layouts, templates)
+│   ├── assets/           # Project assets (svg, fonts, images)
+│   ├── components/       # Reusable React components
+│   ├── lib/              # Utility functions and types
+│   └── services/         # Service functions (API, data fetching, etc.)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
++ src
++ ├── app
++ │   ├── layouts
++ │   ├── template
++ │   ├── navbar
++ │   ├── login
++ │   ├── @home
++ │   │   └── Chat
++ │   └── [profileId]
++ ├── assets
++ │   ├── svg
++ │   ├── fonts
++ │   └── image
++ ├── components
++ │   └── ui
++ ├── lib
++ └── services
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Guide
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This is a neutral, best-practice coding guide. While you're not strictly required to follow it, we strongly recommend adhering to it as closely as possible to ensure consistency, scalability, and maintainability across the codebase.
 
-## Learn More
+## Code Standards
 
-To learn more about Next.js, take a look at the following resources:
+- Prefer using `type` over `interface` for object shapes unless you need interface-specific features like declaration merging or implements/extends.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```ts
+// good
+interface Result {}
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+// better
+type Result = {};
+```
 
-## Deploy on Vercel
+- Use arrow functions for callbacks and inline functions.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+// good
+function handleClick() { ... }
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+// better
+const handleClick = () => { ... };
+```
+
+- Use functional components and hooks.
+
+```tsx
+// good
+class MyComponent extends React.Component {}
+
+// better
+function MyComponent() {
+  // use hooks here
+  return <div>Hello</div>;
+}
+```
+- Prefer `const` and `let` over `var`. Use `const` by default.
+
+```ts
+// bad
+var count = 1;
+
+// good
+const count = 1;
+```
+
+- Use destructuring for props and state.
+
+```tsx
+// good
+function Profile(props) {
+  return <div>{props.name}</div>;
+}
+
+// better
+function Profile({ name }) {
+  return <div>{name}</div>;
+}
+```
+
+- Use single quotes for strings, except to avoid escaping.
+
+```ts
+// good
+const name = "Alice";
+
+// better
+const name = 'Alice';
+```
+
+- Organize imports: external libraries first, then internal modules, then styles.
+
+```ts
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import './styles.css';
+```
+
+- Avoid using `any`. Use specific types or `unknown` if necessary.
+
+```ts
+// bad
+let data: any;
+
+// good
+let data: unknown;
+```
+
+- Use optional chaining and nullish coalescing for safe property access.
+
+```ts
+const userName = user?.profile?.name ?? 'Guest';
+```

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { toast } from 'sonner';
-import { User } from '@/app/Chat/chat.types';
+import { User } from '@/app/layouts/home/Chat/chat.types';
 
 export interface Message {
     id: string;

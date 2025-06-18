@@ -6,8 +6,9 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { UserCircle } from 'lucide-react';
+import Link from 'next/link';
 
-function UserCard({ photoURL, name, status }: any) {
+function UserCard({ photoURL, name, status, URL }: any) {
     const hasValidPhoto = Boolean(photoURL) && photoURL !== 'null' && photoURL !== 'undefined';
     return (
         <div>
@@ -15,16 +16,18 @@ function UserCard({ photoURL, name, status }: any) {
                 <CardHeader>
                     <div className='flex gap-3'>
                         {hasValidPhoto ? (
-                            <img
-                                src={photoURL}
-                                className='w-12 h-12 rounded-full object-cover'
-                                alt='profile'
-                                onError={(e) => {
-                                    console.log('Image failed to load:', photoURL);
-                                    e.currentTarget.style.display = 'none';
-                                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                                }}
-                            />
+                            <Link href={URL}>
+                                <img
+                                    src={photoURL}
+                                    className='w-12 h-12 rounded-full object-cover'
+                                    alt='profile'
+                                    onError={(e) => {
+                                        console.log('Image failed to load:', photoURL);
+                                        e.currentTarget.style.display = 'none';
+                                        e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                                    }}
+                                />
+                            </Link>
                         ) : null}
                         <UserCircle className={`w-16 h-16 text-gray-400 ${hasValidPhoto ? 'hidden' : ''}`} />
                         <div className='mt-2'>
