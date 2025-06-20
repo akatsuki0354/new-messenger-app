@@ -26,7 +26,7 @@ bun dev
 │   └── services/         # Service functions (API, data fetching, etc.)
 ```
 
-```
+```diff
 + src
 + ├── app
 + │   ├── layouts
@@ -126,14 +126,14 @@ import { Button } from '@/components/ui/button';
 import './styles.css';
 ```
 
-- Avoid using `any`. Use specific types or `unknown` if necessary.
+- Avoid using  `unknown` . Use specific types or`any` if necessary.
 
 ```ts
-// bad
-let data: any;
-
 // good
 let data: unknown;
+
+// better
+let data: any;
 ```
 
 - Use optional chaining and nullish coalescing for safe property access.
