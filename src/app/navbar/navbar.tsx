@@ -2,15 +2,19 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { getAuth, signOut } from "firebase/auth";
 import { LogOut } from 'lucide-react';
-const auth = getAuth();
-const Logout = () => {
-    try {
-        signOut(auth)
-    } catch (err) {
-        console.log(err)
-    }
-}
+import { useRouter } from 'next/navigation';
+
 function Navbar() {
+    const auth = getAuth();
+    const router = useRouter();
+    const Logout = () => {
+        try {
+            signOut(auth)
+            router.push("/login");
+        } catch (err) {
+            console.log(err)
+        }
+    }
     return (
         <div>
             <nav className='flex justify-between py-5 px-10 border-b-2'>

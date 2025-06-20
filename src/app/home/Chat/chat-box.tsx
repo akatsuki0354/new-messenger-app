@@ -8,7 +8,7 @@ import Message from '@/components/message'
 import { ChatBoxProps } from './chat.types'
 import { useMessages } from '@/services/messages-services'
 
-function ChatBox({ selectedUser}: ChatBoxProps) {
+function ChatBox({ selectedUser }: ChatBoxProps) {
     const [newMessage, setNewMessage] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const auth = getAuth();
@@ -25,7 +25,7 @@ function ChatBox({ selectedUser}: ChatBoxProps) {
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!newMessage.trim()) return;
-        
+
         const success = await sendMessage(newMessage);
         if (success) {
             setNewMessage('');

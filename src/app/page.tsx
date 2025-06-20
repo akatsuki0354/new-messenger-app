@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import LoginPage from "./login/login";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Home from "./@home/page";
+import Home from "./home/page";
 import Loading from "@/components/loading";
 
 export default function Page() {
