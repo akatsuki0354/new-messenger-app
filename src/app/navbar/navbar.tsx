@@ -10,7 +10,7 @@ function Navbar() {
     const Logout = () => {
         try {
             signOut(auth)
-            router.push("/login");
+            router.push("/");
         } catch (err) {
             console.log(err)
         }

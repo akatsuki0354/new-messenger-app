@@ -46,7 +46,6 @@ export default function Page({ params }: { params: Promise<{ profileId: string }
                                 <h1 className="text-2xl font-semibold">{post.name}</h1>
                                 <h1 className="">{post.status}</h1>
                             </div>
-
                         </div>
                     </div>
                 ))}
